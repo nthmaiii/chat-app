@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  
+  <div class="chat-app">
+    <header class="header">
+      <div class="inner-logo">
+        <a href="index.html">Chat App</a>
+      </div>
+      <div class="inner-actions">
+        <a href="login.html" button-login>
+          Đăng nhập
+        </a>
+        <a href="login.html" button-register>
+          Đăng ký
+        </a>
+        <a href="javascript:;" button-logout>
+          Đăng xuất
+        </a>
+      </div>
+    </header>
+    <div class="alert-list"></div>
+    <h3>Đăng ký tài khoản</h3>
+
+    <form id="form-register" class="form">
+      <div class="form__group">
+        <label for="fullName">Họ tên</label>
+        <input type="text" name="fullName" id="fullName" required>
+      </div>
+
+      <div class="form__group">
+        <label for="email">Email</label>
+        <input name="email" id="email" required>
+      </div>
+
+      <div class="form__group">
+        <label for="password">Mật khẩu</label>
+        <input type="password" name="password" id="password" required>
+      </div>
+
+      <button class="form__button">Đăng ký</button>
+    </form>
+  </div>
+
+  <script type="module" src="./script.js"></script>
+
+</body>
+</html>

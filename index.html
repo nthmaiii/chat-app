@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+  <div class="chat-app">
+    <header class="header">
+      <div class="inner-logo">
+        <a href="index.html">Chat App</a>
+      </div>
+      <div class="inner-actions">
+        <a href="login.html" button-login>
+          Đăng nhập
+        </a>
+        <a href="login.html" button-register>
+          Đăng ký
+        </a>
+        <a href="javascript:;" button-logout>
+          Đăng xuất
+        </a>
+      </div>
+    </header>
+
+    <div class="chat" chat>
+      <div class="inner-body">
+        
+      </div>
+      
+      <div class="inner-foot">
+        <form action="" class="inner-form">
+          <input type="text" name="content" placeholder="Nhập nội dung...">
+          <span class="button-icon">
+            <i class="fa-regular fa-face-smile"></i>
+          </span>
+          <label for="file-upload-with-preview-upload-images" class="button-image">
+            <i class="fa-regular fa-images"></i>
+          </label>
+          <button>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+        <div class="custom-file-container" data-upload-id="upload-images"></div>
+      </div>
+      <emoji-picker class="light"></emoji-picker>
+    </div>
+    
+  </div>
+
+
+  <!-- emoji picker element -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+  <script type="module" src="./script.js"></script>
+
+</body>
+
+</html>
