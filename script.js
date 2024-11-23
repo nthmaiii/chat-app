@@ -153,6 +153,16 @@ const Emoji = document.querySelector("emoji-picker");
 onAuthStateChanged(auth, (user) => {
   if (user) {
     buttonlogout.style.display = "flex";
+    //lấy ra avatar để đổi
+    const postId = auth.currentUser.uid;
+    const commentsRef = ref(db, 'users/' + postId);
+    const innerActions= document.querySelector(".inner-actions");
+    onChildAdded(commentsRef, (data) => {
+      const button = document.createElement("button");
+      button.setAttribute("class", "avatar");
+      button.innerHTML = data.val()[0];
+      innerActions.appendChild(button);
+    });
     chat.style.display = "block";
     // console.log("Đã đăng nhập")
   } else {
@@ -268,24 +278,33 @@ onChildRemoved(chatsRef, (data) => {
 
 
 // emoji picker element
-document.querySelector('emoji-picker')
+if(Emoji)
+{
+  document.querySelector('emoji-picker')
   .addEventListener('emoji-click', event =>  {
     const content = event.detail.unicode;
     const formChat = document.querySelector(".chat-app form");
     formChat.content.value += content;
   });
+}
 
 //khai nào click mới hiện
 const buttonIcon = document.querySelector(".button-icon");
-buttonIcon.addEventListener("click", (event) => {
-  Emoji.classList.toggle("display");
-})
+if(buttonIcon)
+{
+  buttonIcon.addEventListener("click", (event) => {
+    Emoji.classList.toggle("display");
+  })
+}
 
 //ấn ra ngoài cũng mất
-document.addEventListener("click", (event) => {
-  // Nếu không click vào emojiMenu hoặc emojiIcon, và menu đang hiển thị
-  if (!Emoji.contains(event.target) && !buttonIcon.contains(event.target) && Emoji.classList.contains("display") ) {
-    Emoji.classList.remove("display");
-  }
-});
+if(Emoji)
+{
+  document.addEventListener("click", (event) => {
+    // Nếu không click vào emojiMenu hoặc emojiIcon, và menu đang hiển thị
+    if (!Emoji.contains(event.target) && !buttonIcon.contains(event.target) && Emoji.classList.contains("display") ) {
+      Emoji.classList.remove("display");
+    }
+  });
+}
 // End emoji picker element

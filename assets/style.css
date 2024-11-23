@@ -32,6 +32,11 @@ body {
   color: blue;
 }
 
+.header .inner-actions {
+  display: flex;
+  gap: 10px;
+}
+
 .header .inner-actions a {
   display: none;
   color: black;
@@ -41,6 +46,17 @@ body {
   font-size: 14px;
   padding: 5px 12px;
   border-radius: 8px;
+}
+
+.header .inner-actions .avatar {
+  padding: 5px 10px;
+  border: none;
+  background-color: rgb(39, 188, 39);
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .header .inner-actions a:hover {
