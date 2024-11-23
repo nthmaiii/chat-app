@@ -1,3 +1,6 @@
+
+
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 const firebaseConfig = {
   apiKey: "AIzaSyCAgxgKgzZrybj-atFMWYdwxNGtJCmKVVM",
@@ -19,6 +22,8 @@ const auth = getAuth();
 import { getDatabase, ref, push, set, onChildAdded, child, get, onChildRemoved, remove  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 const db = getDatabase();
 const dbRef = ref(getDatabase());
+
+
 
 // Hiển thị thông báo
 const showAlert = (content, time = 3000) => {
@@ -186,7 +191,6 @@ if(formChat)
 
 // Hiển thị tin nhắn mặc định
 const chatsRef = ref(db, 'chats');
-console.log(Emoji);
 
 const chatBody  = document.querySelector("[chat] .inner-body");
 if(chatBody)
@@ -211,7 +215,7 @@ if(chatBody)
               <i class="fa-regular fa-trash-can"></i> 
             </button>
             `;
-            chatBody.appendChild(div);
+            chatBody.insertBefore(div, Emoji);
             chatBody.scrollTop = chatBody.scrollHeight;
             // Vẽ ra rồi -> Ktra tồn tại nút xóa, rồi xóa
             const buttonDelete = document.querySelectorAll(".button-delete");
@@ -236,7 +240,7 @@ if(chatBody)
             <div class="inner-content">
               ${data.val().content}
             </div>`;
-            chatBody.appendChild(div);
+            chatBody.insertBefore(div, Emoji);
             //muốn khi vẽ ra thanh scroll  luôn cuộn xuống bottom
             chatBody.scrollTop = chatBody.scrollHeight;
         }
@@ -285,4 +289,3 @@ document.addEventListener("click", (event) => {
   }
 });
 // End emoji picker element
-

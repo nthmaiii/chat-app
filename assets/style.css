@@ -307,7 +307,7 @@ body {
 /* emoji picker element */
 emoji-picker {
   width: 100%;
-  height: 250px;
+  height: 200px;
   position: relative;
   display: none;
   top: 0px;
@@ -315,5 +315,7 @@ emoji-picker {
 }
 emoji-picker.display {
   display: inline-block;
+  position: sticky;
+  bottom: 0;
 }
 /* End emoji picker element */
