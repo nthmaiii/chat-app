@@ -5,14 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat App</title>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
-  <link
+  <!-- <link
     rel="stylesheet"
     type="text/css"
-    href="https://unpkg.com/file-upload-with-preview/dist/style.css"
-  />
+    href="https://cdnjs.cloudflare.com/ajax/libs/file-upload-with-preview/6.1.2/style.min.css"
+  /> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.css" integrity="sha512-za6IYQz7tR0pzniM/EAkgjV1gf1kWMlVJHBHavKIvsNoUMKWU99ZHzvL6lIobjiE2yKDAKMDSSmcMAxoiWgoWA==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/file-upload-with-preview/6.1.0/style.min.css" integrity="sha512-MGY2jsa4eZynuZiM396JymKahnhbxynkVdZStVh4n2cLtsSFdiGmQjUE68fYVZJUQVI7sqfxoxf5bdo2t+iizA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/style.css">
 </head>
 
@@ -39,6 +41,7 @@
     <div class="chat" chat>
       <div class="inner-body">
         <emoji-picker class="light"></emoji-picker>
+        <div class="custom-file-container" data-upload-id="my-unique-id"></div>
       </div>
       
       <div class="inner-foot">
@@ -54,7 +57,8 @@
             <i class="fa-solid fa-paper-plane"></i>
           </button>
         </form>
-        <div class="custom-file-container" data-upload-id="upload-images"></div>
+        
+        
       </div>
       
     </div>
@@ -63,7 +67,13 @@
 
 
   <!-- emoji picker element -->
+  
   <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/file-upload-with-preview/6.1.2/index.iife.min.js"></script> -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/file-upload-with-preview/6.1.0/index.iife.min.js" integrity="sha512-++oZp6bTkjGrg5ameXNfeKPUUrAKmgvAZODmEsP2jnU4nogSi6dkabUJcQW5QwHaNcdl1r+ZCyDwYur6ah2cug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js" integrity="sha512-EC3CQ+2OkM+ZKsM1dbFAB6OGEPKRxi6EDRnZW9ys8LghQRAq6cXPUgXCCujmDrXdodGXX9bqaaCRtwj4h4wgSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="module" src="./script.js"></script>
 
 </body>

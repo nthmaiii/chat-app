@@ -109,6 +109,7 @@ body {
   padding: 10px;
   height: 400px;
   display: flex;
+  gap: 1px;
   flex-direction: column;
   overflow-y: auto;
 }
@@ -133,24 +134,18 @@ body {
   font-size: 13px;
   line-height: 1.4;
 }
-
-.chat .inner-images {
+.chat .inner-img {
   display: flex;
+  justify-content: flex-start;
+  gap: 10px;
   flex-wrap: wrap;
-  gap: 5px;
+  max-width: 200px;
 }
-
-.chat .inner-outgoing .inner-images {
-  justify-content: flex-end;
-}
-
-.chat .inner-images img {
-  width: 80px;
-  height: 80px;
+.chat .inner-img img {
+  width: 100%;
+  height: auto;
   object-fit: contain;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 0;
 }
 
 .chat .inner-outgoing .inner-content {
@@ -236,49 +231,12 @@ body {
   justify-content: center;
 }
 
-.chat .button-image {
-  margin-left: 0;
-}
 
-.chat .tooltip:not(.shown) {
-  display: none;
-}
 
-.chat .custom-file-container .label-container {
-  display: none;
-}
-
-.chat .custom-file-container .input-container {
-  display: none;
-}
-
-.chat .custom-file-container .image-preview {
-  height: auto;
-  padding: 0;
-  background: transparent !important;
-  margin-top: 10px;
-}
-
-.chat .custom-file-container .image-preview-item {
-  box-shadow: none;
-  border: 1px dashed #ddd;
-  width: 90px;
-  background-size: contain;
-  margin: 5px;
-}
-
-.chat .custom-file-container .image-preview-item-clear {
-  left: auto;
-  right: -6px;
-  background: red;
-  box-shadow: none;
-}
-
-.chat .custom-file-container .image-preview-item-clear-icon {
-  color: white;
-  margin-top: 0;
-}
 /* End chat */
+
+
+
 
 /* Form */
 .form {
@@ -335,3 +293,55 @@ emoji-picker.display {
   bottom: 0;
 }
 /* End emoji picker element */
+
+
+/* preview ảnh */
+.custom-file-container {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  
+}
+.custom-file-container.hidden {
+  display: none;
+}
+.label-container {
+  justify-content: flex-end !important;
+  height: auto !important;
+  display: none !important;
+}
+.image-preview {
+  padding: 0px !important;
+  padding-top: 9px !important;
+  display: grid !important;
+  gap: 10px;
+  grid-template-columns: repeat(5, 1fr);
+  height: 110px !important;
+  background-color: #fff !important;
+}
+.custom-file-container {
+  padding-top: 10px;
+}
+.image-preview-item {
+  width: 100% !important;
+}
+.image-preview-item-clear {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.input-visible {
+  height: 30px !important;
+  padding: none !important;
+  padding-top: 4px !important;
+  font-size: 15px !important;
+}
+.browse-button {
+  padding: none !important;
+  padding-top: 4px !important;
+}
+.input-container {
+  margin-bottom: 0 !important;
+}
+/* End preview ảnh */
+

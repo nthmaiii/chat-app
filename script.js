@@ -1,6 +1,4 @@
 
-
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 const firebaseConfig = {
   apiKey: "AIzaSyCAgxgKgzZrybj-atFMWYdwxNGtJCmKVVM",
@@ -149,7 +147,15 @@ const buttonlogin = document.querySelector("[button-register]");
 const buttonlogout = document.querySelector("[button-logout]");
 const chat = document.querySelector("[chat]")
 const Emoji = document.querySelector("emoji-picker");
-
+const upload = new FileUploadWithPreview.FileUploadWithPreview("my-unique-id", {
+  maxFileCount: 5,
+  multiple: true,
+});
+let previewImage = document.querySelector(".custom-file-container");
+if(previewImage)
+{
+  previewImage.style.display = "none";
+}
 onAuthStateChanged(auth, (user) => {
   if (user) {
     buttonlogout.style.display = "flex";
@@ -182,17 +188,44 @@ onAuthStateChanged(auth, (user) => {
 const formChat = document.querySelector("[chat] .inner-form");
 if(formChat)
 {
-  formChat.addEventListener("submit", (even) => {
+  const url = 'https://api.cloudinary.com/v1_1/dswnyehcb/image/upload'; // thay cloud name
+   formChat.addEventListener("submit", async (even) => {
     even.preventDefault();
     const content = formChat.content.value;
     //lưu vào cơ sở dữ liệu
     const userID = auth.currentUser.uid;
-    if(content && userID) {
+    const images = upload.cachedFileArray || [];
+    const formData = new FormData();
+    let imageLink = [];
+    if((content || images.length > 0) && userID) {
+      if(images.length > 0)
+      {
+        for (let i = 0; i < images.length; i++) {
+          let file = images[i];
+          formData.append('file', file);
+          formData.append('upload_preset', 'cjuen5yd');
+      
+          await fetch(url, {
+            method: 'POST',
+            body: formData,
+          })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            //console.log(data.secure_url);
+            //lưu vào firebase
+            imageLink.push(data.secure_url);
+          });
+        }
+      }
       set(push(ref(db, "chats")), {
         content: content,
+        images: imageLink,
         userID: userID
       });
       formChat.content.value = "";
+      upload.resetPreviewPanel();
     }
   })
 }
@@ -215,51 +248,128 @@ if(chatBody)
       if (snapshot.exists()) {
         if(auth.currentUser.uid === data.val().userID)
         {
+          // div.setAttribute("userID", `${data.key}`);
+          // div.setAttribute("class", "inner-outgoing");
+          // div.innerHTML = 
+          //   `<div class="inner-content">
+          //     ${data.val().content}
+          //   </div>
+          //   <button class="button-delete" uid="${data.key}" >
+          //     <i class="fa-regular fa-trash-can"></i> 
+          //   </button>
+          //   `;
+
           div.setAttribute("userID", `${data.key}`);
           div.setAttribute("class", "inner-outgoing");
-          div.innerHTML = 
-            `<div class="inner-content">
+          let html = ``;
+          if(data.val().content)
+          {
+            html += `<div class="inner-content">
               ${data.val().content}
-            </div>
-            <button class="button-delete" uid="${data.key}" >
+            </div>`;
+            html += `<button class="button-delete" uid="${data.key}" >
               <i class="fa-regular fa-trash-can"></i> 
             </button>
             `;
+            div.innerHTML = html;
+
             chatBody.insertBefore(div, Emoji);
             chatBody.scrollTop = chatBody.scrollHeight;
-            // Vẽ ra rồi -> Ktra tồn tại nút xóa, rồi xóa
-            const buttonDelete = document.querySelectorAll(".button-delete");
-            buttonDelete.forEach((item) => {
-              item.addEventListener("click", () => {
-                const key = item.getAttribute("uid");
-                // Xóa trong firebase
-                const chatsRef = ref(db, 'chats/' + key);
-                remove(chatsRef).then(() => {
-                  //không realtime nên chỉ xóa trên giao diệm thằng chủ, còn bọn kia phải load lại để vẽ lại thì mới mất
-                });
-              })
+          }
+          if(data.val().images.length > 0)
+          {
+            html = `<div class="inner-img">`;
+            for (const img of data.val().images) {
+              html += `<img src="${img}">`;
+            }
+            html += `</div>`;
+            html += `<button class="button-delete" uid="${data.key}" >
+              <i class="fa-regular fa-trash-can"></i> 
+            </button>
+            `;
+            div.innerHTML = html;
+
+            chatBody.insertBefore(div, Emoji);
+            setTimeout(() => {
+              chatBody.scrollTop = chatBody.scrollHeight;
+            }, 0);
+          }
+          
+          
+          // Vẽ ra rồi -> Ktra tồn tại nút xóa, rồi xóa
+          const buttonDelete = document.querySelectorAll(".button-delete");
+          buttonDelete.forEach((item) => {
+            item.addEventListener("click", () => {
+              const key = item.getAttribute("uid");
+              // Xóa trong firebase
+              const chatsRef = ref(db, 'chats/' + key);
+              remove(chatsRef).then(() => {
+                //không realtime nên chỉ xóa trên giao diệm thằng chủ, còn bọn kia phải load lại để vẽ lại thì mới mất
+              });
             })
+          })
         }
         else {
+          // div.setAttribute("class", "inner-incoming");
+          // div.setAttribute("userID", `${data.key}`);
+          // div.innerHTML = 
+          //   `<div class="inner-name">
+          //     ${snapshot.val().fullName}
+          //   </div>
+          //   <div class="inner-content">
+          //     ${data.val().content}
+          //   </div>`;
+
+          //vẽ giao diện
           div.setAttribute("class", "inner-incoming");
           div.setAttribute("userID", `${data.key}`);
-          div.innerHTML = 
-            `<div class="inner-name">
+          let html = "";
+          
+          if(data.val().content)
+          {
+            html += `<div class="inner-name">
               ${snapshot.val().fullName}
             </div>
             <div class="inner-content">
               ${data.val().content}
             </div>`;
+            div.innerHTML = html;
             chatBody.insertBefore(div, Emoji);
-            //muốn khi vẽ ra thanh scroll  luôn cuộn xuống bottom
             chatBody.scrollTop = chatBody.scrollHeight;
+          }
+
+          if(data.val().images.length > 0)
+          {
+            html = `<div class="inner-name" >
+              ${snapshot.val().fullName}
+            </div>`;
+            html += `<div class="inner-img" id="viewerjs-image">`;
+            for (const img of data.val().images) {
+              html += `<img src="${img}">`;
+            }
+            html += `</div>`;
+            div.innerHTML = html;
+            chatBody.insertBefore(div, Emoji);
+            setTimeout(() => {
+              chatBody.scrollTop = chatBody.scrollHeight;
+            }, 0);
+
+            
+            
+          }
+          
+            //muốn khi vẽ ra thanh scroll  luôn cuộn xuống bottom
+            
         }
-      } else {
+        const gallery = new Viewer(div); // thì gọi cách này nó sẽ ăn vô từng thẻ, vậy á
+      } 
+      else {
         // console.log("No data available");
       }
     }).catch((error) => {
       // console.error(error);
     });
+    
   });
   
 }
@@ -308,3 +418,42 @@ if(Emoji)
   });
 }
 // End emoji picker element
+
+
+// preview ảnh
+// End preview ảnh
+
+
+// preview images 
+const buttonImage = document.querySelector(".button-image");
+
+
+buttonImage.addEventListener("click", () => {
+  // Chèn preview ảnh vào nếu chưa tồn tại
+  
+  if(previewImage)
+  {
+    
+    
+    // Ẩn hiện box upload preview
+    document.addEventListener("click", (event) => {
+      previewImage = document.querySelector(".custom-file-container");
+      if(previewImage)
+      {
+        if (!previewImage.contains(event.target) && !buttonImage.contains(event.target)  ) {
+          previewImage.style.display = "none";
+        }
+        else if(buttonImage.contains(event.target))
+        {
+          previewImage.style.display = "block";
+          setTimeout(() => {
+            chatBody.scrollTop = chatBody.scrollHeight;
+          }, 0); 
+        }
+      }
+    });
+    // End Ẩn hiện box upload preview
+  }
+  
+})
+// End preview images 
