@@ -13,6 +13,11 @@ body {
   margin-right: auto;
 }
 
+@media (max-width: 575.98px){
+  .chat-app {
+    width: 300px;
+  }
+}
 /* header */
 .header {
   display: flex;
@@ -51,6 +56,13 @@ a.nav {
   font-size: 14px;
   padding: 5px 12px;
   border-radius: 8px;
+}
+@media (max-width: 575.98px) {
+  .header .inner-actions a {
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 8px;
+  }
 }
 
 .header .inner-actions .avatar {
@@ -158,9 +170,27 @@ a.nav {
   background: #FE5DA3;
   color: #fff;
 }
+@media (max-width: 575.98px) {
+  .chat .inner-content{
+    max-width: 140px;
+    padding: 5px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+}
+
 
 .chat .inner-name {
   margin-top: 10px;
+}
+
+@media (max-width: 575.98px) {
+  .chat .inner-name {
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
 }
 
 .chat .inner-foot {
@@ -189,7 +219,12 @@ a.nav {
   padding: 0 10px;
   outline: none;
 }
-
+@media (max-width: 575.98px) {
+  .chat .inner-form input
+  {
+    padding: 0 0 0 10px;
+  }
+}
 .chat .inner-form button {
   border-radius: 15px;
   border: 1px solid #FE5DA3;
@@ -198,6 +233,13 @@ a.nav {
   height: 25px;
   padding: 0 10px;
   cursor: pointer;
+}
+@media (max-width: 575.98px) {
+  .chat .inner-form button
+  {
+    height: 20px;
+    padding: 0 5px;
+  }
 }
 
 .chat .inner-outgoing {
@@ -237,10 +279,23 @@ a.nav {
 }
 
 
-
+@media (max-width: 519.98px)
+{
+  .chat .button-icon, .chat .button-image {
+    height: 20px;
+    padding: 0 5px;
+  }
+}
 /* End chat */
 
-
+/* Chat */
+@media (max-width: 575.98px) {
+  .chat-app .title
+  {
+    font-size: 20px;
+  }
+}
+/*End  Chat */
 
 
 /* Form */
@@ -280,6 +335,7 @@ a.nav {
   background: orange;
   cursor: pointer;
 }
+
 /* End Form */
 
 
