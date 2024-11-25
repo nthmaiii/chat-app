@@ -37,6 +37,11 @@ body {
   gap: 10px;
 }
 
+a.nav {
+  margin-top: 15px;
+  display: inline-block ;
+}
+
 .header .inner-actions a {
   display: none;
   color: black;
